@@ -3,7 +3,7 @@ var app = {
 
   //TODO: The current 'addFriend' function just adds the class 'friend'
   //to all messages sent by the user
-  server: 'http://localhost:8080/',
+  server: 'http://localhost:3000/classes/messages',
   //server: 'http://127.0.0.1:3000/classes/chatterbox' //from solution video
   username: 'anonymous',
   roomname: 'lobby',

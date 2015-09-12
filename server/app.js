@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('./db');
+var controller = require('./controllers');
 
 // Middleware
 var morgan = require('morgan');
@@ -30,14 +31,14 @@ if (!module.parent) {
   console.log("Listening on", app.get("port"));
 }
 
-var allowCrossDomain = function(request, response, next){
-  response.header( "access-control-allow-origin", "*");
-  response.header( "access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS" );
-  response.header( "access-control-allow-headers", "content-type, accept" );
-  response.header( "access-control-max-age", 10); // Seconds. 
-  response.header( "Content-Type", "application/json" );
-  if('OPTIONS' === request.method){
-    response.sendStatus(200); 
+var allowCrossDomain = function(req, res, next){
+  res.header( "access-control-allow-origin", "*");
+  res.header( "access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS" );
+  res.header( "access-control-allow-headers", "content-type, accept" );
+  res.header( "access-control-max-age", 10); // Seconds. 
+  res.header( "Content-Type", "application/json" );
+  if('OPTIONS' === req.method){
+    res.sendStatus(200); 
   } else {
     next(); 
   }
@@ -45,16 +46,21 @@ var allowCrossDomain = function(request, response, next){
 
 app.use(allowCrossDomain);
 
-app.get('/', function(request, response){
-  response.send(JSON.stringify(messageData));
-});
 
-app.use(bodyParser.json()); 
+app.use(parser.json()); 
 // app.use(bodyParser.urlencoded({extended: true}));
 
 
-app.post('/', function(request, response){
-  // messageData.results.push(request.body);
-  // console.log(request.body); 
-  response.send(JSON.stringify(messageData));
+//The server is the view, in MVC? 
+app.get('/messages', function(req, res){
+  console.log('sending to controller');
+  controller.messages.get(); 
+  controller.users.get(); 
+  res.end();
+});
+
+app.post('/messages', function(req, res){
+  console.log('getting from controller?'); 
+  controller.messages.post();
+  controller.users.post(); 
 });

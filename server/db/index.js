@@ -11,11 +11,11 @@ exports.connection = mysql.createConnection({
 });
 
 //tells us if we have successfully connected with the database
-connection.connect(function(err){
+exports.connection.connect(function(err){
   if(err) {
     console.log("error connecting: " + err.stack); 
   } else {
-    console.log("connected as id: " + connection.threadId);
+    console.log("connected as id: " + exports.connection.threadId);
   }
 });
 
