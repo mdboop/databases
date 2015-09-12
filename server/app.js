@@ -3,6 +3,7 @@ var db = require('./db');
 var controller = require('./controllers');
 var cors = require('cors');
 
+
 // Middleware
 var morgan = require('morgan');
 var parser = require('body-parser');
@@ -12,6 +13,9 @@ var router = require('./routes.js');
 
 var app = express();
 module.exports.app = app;
+
+// Allow cross-origin requests
+app.use(cors());
 
 // Set what we are listening on.
 app.set("port", 3000);
@@ -23,7 +27,6 @@ app.use(parser.json());
 // Set up our routes
 app.use("/classes", router);
 
-app.use(cors());
 
 // Serve the client files
 app.use(express.static(__dirname + "/../client"));
