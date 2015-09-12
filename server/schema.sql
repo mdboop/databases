@@ -16,13 +16,13 @@ CREATE TABLE messages (
 
 CREATE TABLE users (
   id int(5) NOT NULL AUTO_INCREMENT, 
-  name varchar(20) not null, 
+  name varchar(20) UNIQUE, 
   PRIMARY KEY (id)
 );
 
 CREATE TABLE rooms (
   id int(5) NOT NULL AUTO_INCREMENT, 
-  room varchar(20) not null, 
+  room varchar(20) UNIQUE, 
   PRIMARY KEY (id)
 );
 
