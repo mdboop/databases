@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('./db');
 var controller = require('./controllers');
+var cors = require('cors');
 
 // Middleware
 var morgan = require('morgan');
@@ -22,20 +23,7 @@ app.use(parser.json());
 // Set up our routes
 app.use("/classes", router);
 
-var allowCrossDomain = function(request, response, next){
-  response.header( "access-control-allow-origin", "*");
-  response.header( "access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS" );
-  response.header( "access-control-allow-headers", "content-type, accept" );
-  response.header( "access-control-max-age", 10); // Seconds. 
-  response.header( "Content-Type", "application/json" );
-  if('OPTIONS' === request.method){
-    response.sendStatus(200); 
-  } else {
-    next(); 
-  }
-}
-
-app.use(allowCrossDomain);
+app.use(cors());
 
 // Serve the client files
 app.use(express.static(__dirname + "/../client"));
