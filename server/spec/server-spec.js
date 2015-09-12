@@ -81,7 +81,7 @@ describe("Persistent Node Chat Server", function() {
       request("http://127.0.0.1:3000/classes/messages", function(error, response, body) {
         var messageLog = JSON.parse(body);
         expect(messageLog[0].message).to.equal("In mercys name, three days is all I need.");
-        expect(messageLog[0].roomname).to.equal("Hello");
+        expect(messageLog[0].room).to.equal("Hello");
         done();
       });
     });
